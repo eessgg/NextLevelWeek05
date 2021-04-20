@@ -13,14 +13,12 @@ export function Welcome() {
         Gerencie {'\n'}
       suas plantas {'\n'}
       de forma fácil</Text>
-      {/* <Image source={wateringImg} style={styles.image} /> */}
+      <Image source={wateringImg} style={styles.image} />
 
       <Text  style={styles.subtitle}>
         Não esqueça mais de regar suas plantas. Nós cuidamos de lembrar você sempre que precisar.
       </Text>
-      {
-        state && <Image source={wateringImg} style={styles.image} />
-      }
+
       <Button title=">" />
     </SafeAreaView>
   );
