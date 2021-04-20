@@ -1,5 +1,5 @@
-# Next Level Week 05 🚀
+# <center> Next Level Week 05 🚀</center>
+# <center>Centered text</center>
 
-### React & React Native
 
 ![React](./templates/badge.png)
