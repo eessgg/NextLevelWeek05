@@ -2,4 +2,4 @@
 
 ### React & React Native
 
-![React](./templates/react-icon-0.jpg)
+![React](./templates/badge.png)
