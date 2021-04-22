@@ -5,8 +5,8 @@ import ptBR from 'date-fns/locale/pt-BR';
 export function Player() {
 
   return (
-    <div>
-      <header className={styles.playerContainer}>
+    <div className={styles.playerContainer}> 
+      <header>
         <img src="/logo.svg" alt="app"/>
         <strong>Tocando agora</strong>
       </header>
