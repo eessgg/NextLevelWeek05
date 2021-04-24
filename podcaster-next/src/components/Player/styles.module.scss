@@ -87,6 +87,14 @@
       filter: brightness(0.7)
     }
 
+    &.isActive {
+      filter: invert(0.35) sepia(1) saturate(3) hue-rotate(100deg);
+    }
+
+    &.isActive:hover {
+      filter: invert(0.6) sepia(1) saturate(3) hue-rotate(100deg);
+    }
+
     &.playButton {
       width: 4rem;
       height: 4rem;
@@ -100,7 +108,24 @@
   }
 }
 
-
 .currentEpisode {
   text-align: center;
+
+  img {
+    border-radius: 1.5rem;
+  }
+
+  strong {
+    display: block;
+    margin-top: 2rem;
+    font: 600 1.25rem Lexend, sans-serif;
+    line-height: 1.75rem;
+  }
+
+  span {
+    display: block;
+    margin-top: 1rem;
+    opacity: 0.6;
+    line-height: 1.5rem;
+  }
 }

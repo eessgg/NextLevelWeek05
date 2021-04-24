@@ -1,11 +1,13 @@
 import { GetStaticProps } from 'next';
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from 'next/image';
+import Head from 'next/head';
+import Link from 'next/link';
 import { api } from './../services/api';
 import {format, parseISO} from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import { convertDurationToString } from './../utils/convertDurationToString';
 import styles from './home.module.scss';
+import { PlayerContext, usePlayer } from './../contexts/PlayerContext';
 
 type Episode = {
   id: string;
@@ -24,13 +26,20 @@ type HomeProps = {
 }
 
 export default function Home({latestEpisodes, allEpisodes}: HomeProps) {
+  const {playList} = usePlayer()
+
+  const episodeList = [...latestEpisodes, ...allEpisodes];
+
   return (
     <div className={styles.homepage}>
+      <Head>
+        <title>Home | Podcaster</title>
+      </Head>
       <section className={styles.latestEpisodes}>
         <h2>Ultimos lançamentos</h2>
 
         <ul>
-          {latestEpisodes.map(episode => {
+          {latestEpisodes.map((episode, index) => {
             return (
               <li key={episode.id} className="s">
                 <Image 
@@ -41,13 +50,15 @@ export default function Home({latestEpisodes, allEpisodes}: HomeProps) {
                   objectFit="cover"
                 />
                 <div className={styles.episodeDetails}>
-                  <Link href={`/episodes/${episode.id}`}>{episode.title}</Link>
+                  <Link href={`/episodes/${episode.id}`}>
+                    <a>{episode.title}</a>
+                  </Link>
                   <p>{episode.members}</p>
                   <span>{episode.publishedAt}</span>
                   <span>{episode.durationString}</span>
                 </div>
 
-                <button type="button">
+                <button type="button" onClick={() => playList(episodeList, index + latestEpisodes.length)}>
                   <img src="/play-green.svg" alt="play"/>
                 </button>
               </li>
@@ -55,6 +66,7 @@ export default function Home({latestEpisodes, allEpisodes}: HomeProps) {
           })}
         </ul>
       </section>
+
       <section className={styles.allEpisodes}>
         <h2>Todos Episódios</h2>
         <table cellSpacing={0}>

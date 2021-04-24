@@ -7,6 +7,9 @@ import { api } from './../../services/api';
 import Image  from 'next/image';
 import styles from './episode.module.scss'
 import Link from 'next/link'
+import { usePlayer } from './../../contexts/PlayerContext';
+import React from 'react';
+import Head from 'next/head';
 
 
 type Episode = {
@@ -26,8 +29,13 @@ type EpisodeProps = {
 }
 
 export default function Episode({episode}: EpisodeProps) {
+  const {play} = usePlayer()
+
   return (
     <div className={styles.episode}>
+      <Head>
+        <title>{episode.title} | Podcaster</title>
+      </Head>
       <div className={styles.thumbnailContainer}>
         <button type="button">
           <img src="/arrow-left.svg" alt="back"/>
