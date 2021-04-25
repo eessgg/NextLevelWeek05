@@ -10,14 +10,21 @@ import {
 import { Button } from '../componentss/Button';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
+import { useNavigation } from '@react-navigation/core';
 
 
 export function Confirmation() {
+  const navigation = useNavigation()
+
+  function handleMoveOn() {
+    navigation.navigate("PlantSelect")
+  }
+
   return(
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.emoji}>
-            😋
+            😁
         </Text>
         <Text style={styles.title}>
             Agora vamos começar a cuidar das suas
@@ -28,7 +35,10 @@ export function Confirmation() {
             plantinhas com muito cuidado.
         </Text>
         <Text style={styles.footer}>
-            <Button />
+            <Button
+              title="Começar"
+              onPress={handleMoveOn}
+            />
         </Text>
         
       </View>
@@ -43,10 +53,14 @@ const styles = StyleSheet.create({
     justifyContent:'space-around'
   },
   content: {
-    padding:10
+    padding: 30,
+    flex: 1,
+    justifyContent:'center',
+    alignItems:'center',
+    width:'100%',
   },
   emoji: {
-    fontSize: 32,
+    fontSize: 78,
   },
   title: {
     fontSize: 22,
@@ -60,11 +74,13 @@ const styles = StyleSheet.create({
     fontFamily:fonts.text,
     textAlign:'center',
     fontSize:17,
-    paddingVertical:20,
+    paddingVertical:10,
     color:colors.heading
   },
   footer: {
     width:'100%',
-    paddingHorizontal:75
+    backgroundColor: 'red',
+    paddingHorizontal:75,
+    marginTop:50,
   },
 })
