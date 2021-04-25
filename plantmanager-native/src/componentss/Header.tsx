@@ -4,7 +4,6 @@ import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import colors from '../styles/colors';
 
 import userImg from '../assets/user.jpg';
-import { color } from 'react-native-reanimated';
 import fonts from '../styles/fonts';
 
 export function Header() {
@@ -33,16 +32,19 @@ const styles = StyleSheet.create({
     marginTop: getStatusBarHeight(),
   },
   image: {
-    width:75,
-    height:75,
+    width:70,
+    height:70,
     borderRadius: 40
   },
   greeting: {
-    fontSize:32,
+    fontSize: 32,
     color: colors.heading,
-    fontFamily: fonts.text,
+    fontFamily: fonts.heading,
   },
   userName: {
-
+    fontSize: 32,
+    fontFamily:fonts.heading,
+    color: colors.heading,
+    lineHeight:40
   },
 })
