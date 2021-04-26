@@ -1,4 +1,4 @@
-import { useRoute } from '@react-navigation/core';
+import { useRoute, useNavigation } from '@react-navigation/core';
 import React, {useState} from 'react';
 import { Alert, StyleSheet, Text, View, Image, ScrollView, Platform, TouchableOpacity } from 'react-native';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
@@ -9,21 +9,11 @@ import waterdrop from '../assets/waterdrop.png';
 import { Button } from '../componentss/Button';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
-import { isBefore } from 'date-fns';
+import { format, isBefore } from 'date-fns';
+import { loadPlant, PlantProps, savePlant } from './../libs/storage';
 
 interface Params {
-  plant: {
-    id: string,
-    name: string,
-    about: string,
-    water_tips: string,
-    photo: string,
-    environments: [string],
-    frequency: {
-      times: number,
-      repeat_every: string
-    }
-  }
+  plant: PlantProps
 }
 
 export const PlantSave = () => {
@@ -32,6 +22,8 @@ export const PlantSave = () => {
 
   const route = useRoute()
   const { plant } = route.params as Params;
+
+  const navigation = useNavigation()
 
   function handleChangeTime(event:Event, dateTime: Date | undefined) {
     if(Platform.OS === 'android') {
@@ -48,8 +40,39 @@ export const PlantSave = () => {
     }
   }
 
+  function handleOpenDatetimePickerforAndroid() {
+    setShowDatePicker(oldState => !oldState);
+  }
+
+
+
+  async function handleSave() {
+    try {
+      await savePlant({
+        ...plant,
+        dateTimeNotification: selectedDateTime
+      })
+
+      
+      navigation.navigate("Confirmation", {
+        title: "Tudo certo",
+        subtitle: 'Fique tranquilo...',
+        buttonTitle: "Obrigadooo!",
+        icon: 'hug',
+        nextScreen: 'MyPlants'
+      })
+
+    } catch (error) {
+      Alert.alert('Não foi salvo. 😥 ')
+    }
+  }
+
   return (
-    <View style={styles.container}>
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.container}
+    >
+      <View style={styles.container}>
       <View style={styles.plantInfo}>
         <SvgFromUri
           uri={plant.photo} height={150} width={150}
@@ -87,18 +110,21 @@ export const PlantSave = () => {
 
         {
           Platform.OS === 'android' && (
-            <Text style={styles.dateTimePickerText}>
-              Mudar HOrario
-            </Text>
+           <TouchableOpacity style={styles.dateTimePickerButton} onPress={handleOpenDatetimePickerforAndroid}>
+              <Text style={styles.dateTimePickerText}>
+                {`Mudar ${format(selectedDateTime, 'HH:mm')}`}
+              </Text>
+           </TouchableOpacity>
           )
         }
 
         <Button
             title="Cadastrar planta"
-            onPress={() => { }}
+            onPress={handleSave}
         />
       </View>
     </View>
+    </ScrollView>
   );
 }
 
@@ -163,5 +189,15 @@ const styles = StyleSheet.create({
     color: colors.heading,
     fontSize: 12,
     marginBottom: 5
+  },
+  dateTimePickerButton: {
+    width: '100%',
+    alignItems:'center',
+    paddingVertical:40,
+  },
+  dateTimePickerText: {
+    color:colors.heading,
+    fontSize:24,
+    fontFamily: fonts.text
   },
 })
