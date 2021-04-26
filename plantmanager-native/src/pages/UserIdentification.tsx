@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, SafeAreaView, View,Text, TextInput, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { StyleSheet, SafeAreaView, View,Text, TextInput, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard , Alert} from 'react-native';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 import {Button} from '../componentss/Button'
 import { useNavigation } from '@react-navigation/core';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export function UserIdentification() {
   const [isFocused, setIsFocused] = React.useState(false)
@@ -25,8 +26,13 @@ export function UserIdentification() {
     setName(value)
   }
 
-  function handleSubmit() {
-    navigation.navigate("Confirmation")
+  async function handleSubmit() {
+    if(!name) {
+      return Alert.alert('Não esqueça de escrever seu nome. 😕')
+    }
+
+    await AsyncStorage.setItem('@plantmanager:user', name);
+    navigation.navigate("Confirmation");
   }
 
   return (
