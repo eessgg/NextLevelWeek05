@@ -70,9 +70,8 @@ export function Player() {
     <div className={styles.playerContainer}>
 
       <header>
-        <img src="/logo.svg" alt="app"/>
-        <strong>Tocando agora {episode.title} </strong>
-      </header>
+        <strong>Tocando agora </strong>
+       </header> 
 
       { episode ? (
         <div className={styles.currentEpisode}>

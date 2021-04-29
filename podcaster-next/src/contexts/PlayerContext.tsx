@@ -1,39 +1,41 @@
-import { createContext, ReactNode, useState, useContext  } from "react";
+import { createContext, ReactNode, useContext, useState } from 'react';
 
-type Episode ={
-  title:string;
+type Episode = {
+  title: string;
   members: string;
-  thumbnail:string;
-  duration:number;
+  thumbnail: string;
+  duration: number;
   url: string;
-}
+};
 
-type PlayContextData = {
-  episodesList: Episode[];
+type PlayerContextData = {
+  episodeList: Episode[];
   currentEpisodeIndex: number;
   isPlaying: boolean;
+  hasNext: boolean;
+  hasPrevious: boolean;
   isLooping: boolean;
   isShuffling: boolean;
   play: (episode: Episode) => void;
   playList: (list: Episode[], index: number) => void;
-  setPlayingState: (state:boolean) => void;
-  togglePlay:() => void;
+  playNext: () => void;
+  playPrevious: () => void;
+  clearPlayState: () => void;
+  togglePlay: () => void;
   toggleLoop: () => void;
-  toggleShuffle: () => void; 
-  playNext:() => void;
-  playPrevious:() => void;
-  clearPlayerState: () => void;
-  hasPrevious: boolean;
-  hasNext: boolean;
-}
+  toggleShuffle: () => void;
+  setPlayingState: (state: boolean) => void;
+};
 
 type PlayerContextProviderProps = {
   children: ReactNode;
-}
+};
 
-export const PlayerContext = createContext({} as PlayContextData)
+export const PlayerContext = createContext({} as PlayerContextData);
 
-export function PlayerContextProvider({children}: PlayerContextProviderProps) {
+export function PlayerContextProvider({
+  children,
+}: PlayerContextProviderProps) {
   const [episodeList, setEpisodeList] = useState([]);
   const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -43,13 +45,37 @@ export function PlayerContextProvider({children}: PlayerContextProviderProps) {
   function play(episode: Episode) {
     setEpisodeList([episode]);
     setCurrentEpisodeIndex(0);
-    setIsPlaying(true)
+    setIsPlaying(true);
   }
 
-  function playList(list: Episode[], index: number)  {
-    setEpisodeList(list)
-    setCurrentEpisodeIndex(index)
-    setIsPlaying(true)
+  function playList(list: Episode[], index: number) {
+    setEpisodeList(list);
+    setCurrentEpisodeIndex(index);
+    setIsPlaying(true);
+  }
+
+  const hasNext = isShuffling || currentEpisodeIndex + 1 < episodeList.length;
+  const hasPrevious = currentEpisodeIndex > 0;
+
+  function clearPlayState() {
+    setEpisodeList([]);
+    setCurrentEpisodeIndex(0);
+  }
+
+  function playNext() {
+    if (isShuffling) {
+      const nextRandomEpisodeIndex = Math.floor(
+        Math.random() * episodeList.length,
+      );
+
+      setCurrentEpisodeIndex(nextRandomEpisodeIndex);
+    } else if (hasNext) {
+      setCurrentEpisodeIndex(currentEpisodeIndex + 1);
+    }
+  }
+
+  function playPrevious() {
+    if (hasPrevious) setCurrentEpisodeIndex(currentEpisodeIndex - 1);
   }
 
   function togglePlay() {
@@ -65,34 +91,11 @@ export function PlayerContextProvider({children}: PlayerContextProviderProps) {
   }
 
   function setPlayingState(state: boolean) {
-    setIsPlaying(state)
-  }
-
-  function clearPlayerState() {
-    setEpisodeList([]); 
-    setCurrentEpisodeIndex(0);
-  }
-
-  const hasPrevious = currentEpisodeIndex > 0
-  const hasNext = isShuffling || (currentEpisodeIndex + 1) < episodeList.length;
-
-  function playNext() {
-    if(isShuffling) {
-      const nextRandomEpisodeIndex(nextRandomEpisodeIndex);
-      setCurrentEpisodeIndex(nextRandomEpisodeIndex);
-    } else if (hasNext) {
-      setCurrentEpisodeIndex(currentEpisodeIndex + 1);
-    }
-  }
-
-  function playPrevious() {
-    if(hasPrevious) {
-      setCurrentEpisodeIndex(currentEpisodeIndex - 1);
-    }
+    setIsPlaying(state);
   }
 
   return (
-    <PlayerContext.Provider 
+    <PlayerContext.Provider
       value={{
         episodeList,
         currentEpisodeIndex,
@@ -100,24 +103,23 @@ export function PlayerContextProvider({children}: PlayerContextProviderProps) {
         playList,
         playNext,
         playPrevious,
+        clearPlayState,
         isPlaying,
         isLooping,
         isShuffling,
-        togglePlay,
-        setPlayingState,
-        setIsShuffling,
         hasNext,
         hasPrevious,
+        togglePlay,
         toggleLoop,
         toggleShuffle,
-        clearPlayerState,
+        setPlayingState,
       }}
-    >      
+    >
       {children}
     </PlayerContext.Provider>
-  )
+  );
 }
 
 export const usePlayer = () => {
   return useContext(PlayerContext);
-} 
+};

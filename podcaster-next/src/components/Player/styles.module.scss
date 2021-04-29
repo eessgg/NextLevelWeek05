@@ -1,9 +1,9 @@
 .playerContainer {
-  width: 26.5rem;
+  width: 100%;
   padding: 3rem 4rem;
-  height: 100vh;
+  height: auto;
 
-  background: var(--purple-500);
+  background: var(--green-hover);
   color: var(--white);
 
   display: flex;
@@ -32,7 +32,7 @@
 
 .emptyPlayer {
   width: 100%;
-  height: 20rem;
+  height: 10rem;
   border: 1.5px dashed var(--purple-300);
   background: linear-gradient(143.8deg, rgba(145,100,200,0.8) 0%, rgba(0,0,0,0) 100%);
 

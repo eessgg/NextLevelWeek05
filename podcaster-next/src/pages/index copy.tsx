@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Head from 'next/head';
 import Link from 'next/link';
 import { api } from './../services/api';
-import { format, parseISO } from 'date-fns';
+import {format, parseISO} from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import { convertDurationToString } from './../utils/convertDurationToString';
 import styles from './home.module.scss';
@@ -12,21 +12,21 @@ import { PlayerContext, usePlayer } from './../contexts/PlayerContext';
 type Episode = {
   id: string;
   title: string;
-  thumbnail: string;
+  thumbnail:string;
   members: string;
   duration: number;
-  durationString: string;
+  durationString:string;
   url: string;
   publishedAt: string
-}
+} 
 
 type HomeProps = {
   latestEpisodes: Episode[];
   allEpisodes: Episode[];
 }
 
-export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
-  const { playList } = usePlayer()
+export default function Home({latestEpisodes, allEpisodes}: HomeProps) {
+  const {playList} = usePlayer()
 
   const episodeList = [...latestEpisodes, ...allEpisodes];
 
@@ -38,37 +38,29 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
       <section className={styles.latestEpisodes}>
         <h2>Ultimos lançamentos</h2>
 
-        <ul>
+        <ul>v
           {latestEpisodes.map((episode, index) => {
             return (
-              <li key={episode.id}>
-                <div className={styles.btnPlayDetails}>
-                  <Image
-                    width={250}
-                    height={192}
-                    src={episode.thumbnail}
-                    alt={episode.title}
-                    objectFit="cover"
-                  />
-                  <button 
-                    type="button"
-                    onClick={() => playList(episodeList, index + latestEpisodes.length)}
-                  > <img src="/play-green.svg" alt="play" />
-                  </button>
-                </div>
-  
+              <li key={episode.id} className="s">
+                <Image 
+                  width={192}
+                  height={192}
+                  src={episode.thumbnail}
+                  alt={episode.title}
+                  objectFit="cover"
+                />
                 <div className={styles.episodeDetails}>
-                  <main>
-                    <Link href={`/episodes/${episode.id}`}>
-                      {episode.title}
-                    </Link>
-                    <p>{episode.members}</p>
-                  </main>
-                  <footer>
-                    <p> <span> DATA: </span> {episode.publishedAt}</p>
-                    <p> <span> DURAÇÂO: </span> {episode.durationString}</p>
-                  </footer>
+                  <Link href={`/episodes/${episode.id}`}>
+                    <a>{episode.title}</a>
+                  </Link>
+                  <p>{episode.members}</p>
+                  <span>{episode.publishedAt}</span>
+                  <span>{episode.durationString}</span>
                 </div>
+
+                <button type="button" onClick={() => playList(episodeList, index + latestEpisodes.length)}>
+                  <img src="/play-green.svg" alt="play"/>
+                </button>
               </li>
             )
           })}
@@ -121,11 +113,11 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { data } = await api.get('episodes', {
+  const {data} = await api.get('episodes', {
     params: {
       _limit: 12,
       _sort: 'published_at',
-      _order: 'desc'
+      _order:'desc'
     }
   });
 
@@ -135,14 +127,14 @@ export const getStaticProps: GetStaticProps = async () => {
       title: episode.title,
       thumbnail: episode.thumbnail,
       members: episode.members,
-      publishedAt: format(parseISO(episode.published_at), 'd MMM yy', { locale: ptBR }),
+      publishedAt: format(parseISO(episode.published_at), 'd MMM yy', {locale: ptBR}),
       duration: Number(episode.file.duration),
       durationString: convertDurationToString(Number(episode.file.duration)),
       url: episode.file.url,
     }
   })
 
-  const latestEpisodes = episodes.slice(0, 2)
+  const latestEpisodes = episodes.slice(0,2)
   const allEpisodes = episodes.slice(2, episodes.length);
 
   return {

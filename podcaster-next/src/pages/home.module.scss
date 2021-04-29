@@ -1,7 +1,7 @@
 .homepage {
   padding:0 4rem;
   height: calc(100vh - 6.5rem);
-  overflow-y: scroll;
+  width: 100%;
 
   h2 {
     margin-top: 3rem;
@@ -10,156 +10,255 @@
 }
 
 .latestEpisodes {
+  margin-top:20px;
+  
+  color:var(--gray-800);
+
+  header {
+    border: 1px solid black;
+    border-radius: 10px;
+  }
+
   ul {
     list-style: none;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
+    gap: 2rem;
+    flex-wrap: wrap;
 
     li {
-      background: var(--white);
-      border: 1px solid var(--gray-100);
-      padding: 1.25rem;
+      padding: 1.5rem;
       border-radius: 1rem;
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      grid-gap: 1rem;
+      transition: all 0.3s ease;
+      border: 1px solid #B7B7B7;
 
-      .episodeDetails {
-        flex: 1;
-        margin-left: 1rem;
+      &:hover {
+        background-color: var(--green-hover);
+        box-shadow: 0px 5px 0px #FF44CB;
+        border: 1px solid var(--green-hover);
+      }
 
 
-        a {
-          display: block;
-          color:var(--gray-800);
-          font-weight: 600;
-          font-family: Lexend, sans-serif;
-          text-decoration: none;  
-          line-height: 1.4rem;
+      .btnPlayDetails {
+        background-color: chartreuse;
+        width: 250px;
+        height:192px;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+
+        button {
+          background: transparent;
+          border: none;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          z-index: 999;
+          left: 0;
+          
+          transition: all 0.2s ease-in-out;
 
           &:hover {
-            text-decoration: underline;
+            background-color: rgba(248, 24, 229, 0.61);
+
+            img {
+              opacity: 1;
+            }
           }
-        }
-
-        p {
-          font-size: 0.875rem;
-          margin-top: 0.5rem;
-          max-width: 70%;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        span {
-          display: inline-block;
-          margin-top: 0.5rem;
-          font-size: 0.875rem;
-          
-          &:last-child {
-            margin-right: 0.5rem;
-            padding-right: 0.5rem;
-            position: relative;
-          }
-          &::before {
-            content: "";
-            width: 4px;
-            height: 4px;
-            border-radius: 2px;
-            background: #ddd;
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translate(-50%, -50%);
-          }
-        }
-
-        button{ 
-          position: relative;
-          right: 2rem;
-          bottom: 2rem;
-
-          width: 2.5rem;
-          height: 2.5rem;
-          background: var(--white);
-          border: 1px solid var(--gray-100);
-          border-radius: 8.675rem;
-          font-size: 0;
-
-          transition: filter();
 
           img {
-            width: 1.5rem;
-            height: 1.5rem;
-          }
-
-          &:hover {
-            filter: brightness(0.9);
+            width: 100px;
+            opacity: 0;
           }
         }
-      
+      }
+
+      .episodeDetails {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        main {
+          a {
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: var(--gray-800);
+          }
+          p {
+            padding-top: 12px;
+          }
+        }
+        footer {
+          display: flex;
+          justify-content: space-between;
+        }
       }
     }
   }
+
+//   ul {
+//     list-style: none;
+//     display: flex;
+
+//     li {
+//       background: var(--white); 
+//       border: 1px solid var(--gray-100);
+//       padding: 1.5rem;
+//       border-radius: 1rem;
+//       display: flex;
+//       justify-content: space-between;
+//       transition: all ease-in 0.1s;
+
+//       &:hover {
+//         background: var(--green-hover);
+//         box-shadow: 5px 5px 0px #FF44CB;
+//         border: none;
+//         border: 1px solid transparent;
+//       }
+
+//       .episodeDetails {
+//         flex: 1;
+//         margin-left: 1rem;
+//         justify-content: space-between;
+//         display: flex;
+
+//         a {
+//           display: block;
+//           color:var(--gray-800);
+//           font-weight: 600;
+//           font-family: Lexend, sans-serif;
+//           text-decoration: none;  
+//           line-height: 1.4rem;
+
+//           &:hover {
+//             text-decoration: underline;
+//           }
+//         }
+
+//         p {
+//           font-size: 0.875rem;
+//           margin-top: 0.5rem;
+//           max-width: 70%;
+//           white-space: nowrap;
+//           overflow: hidden;
+//           text-overflow: ellipsis;
+//         }
+
+//         span {
+//           display: inline-block;
+//           margin-top: 0.5rem;
+//           font-size: 0.875rem;
+          
+//           &:last-child {
+//             margin-right: 0.5rem;
+//             padding-right: 0.5rem;
+//             position: relative;
+//           }
+//           &::before {
+//             content: "";
+//             width: 4px;
+//             height: 4px;
+//             border-radius: 2px;
+//             background: #ddd;
+//             position: absolute;
+//             left: 0;
+//             top: 50%;
+//             transform: translate(-50%, -50%);
+//           }
+//         }
+
+//         button{ 
+//           position: relative;
+//           right: 2rem;
+//           bottom: 2rem;
+
+//           width: 2.5rem;
+//           height: 2.5rem;
+//           background: var(--white);
+//           border: 1px solid var(--gray-100);
+//           border-radius: 8.675rem;
+//           font-size: 0;
+
+//           transition: filter();
+
+//           img {
+//             width: 1.5rem;
+//             height: 1.5rem;
+//           }
+
+//           &:hover {
+//             filter: brightness(0.9);
+//             background: red;
+//           }
+//         }
+      
+//       }
+//     }
+//   }
 }
 
 .allEpisodes {
   padding-bottom: 2rem;
 
-  table {
-    width: 100%;
+//   table {
+//     width: 100%;
 
-    th, td {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--gray-100);
-    }
+//     th, td {
+//       padding: 0.75rem 1rem;
+//       border-bottom: 1px solid var(--gray-100);
+//     }
 
-    th {
-      color: var(--gray-200);
-      text-transform: uppercase;
-      font: 500 0.75rem Lexend, sans-serif;
-      text-align: left;
-    }
+//     th {
+//       color: var(--gray-200);
+//       text-transform: uppercase;
+//       font: 500 0.75rem Lexend, sans-serif;
+//       text-align: left;
+//     }
 
-    td {
-      font-size: 0.875rem;
+//     td {
+//       font-size: 0.875rem;
 
-      img {
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 0.5rem;
-      }
+//       img {
+//         width: 2.5rem;
+//         height: 2.5rem;
+//         border-radius: 0.5rem;
+//       }
 
-      a {
-        color: var(--gray-800);
-        font-family: Lexend, sans-serif;
-        font-weight: 600;
-        text-decoration: none;
-        line-height: 1.4rem;
-        font-size: 1rem;
+//       a {
+//         color: var(--gray-800);
+//         font-family: Lexend, sans-serif;
+//         font-weight: 600;
+//         text-decoration: none;
+//         line-height: 1.4rem;
+//         font-size: 1rem;
 
-        &:hover {
-          text-decoration: underline;
-        }
-      }
+//         &:hover {
+//           text-decoration: underline;
+//         }
+//       }
 
-      button {
-        width: 2rem;
-        height: 2rem;
-        background: var(--white);
-        border: 1px solid var(--gray-100);
-        border-radius: 0.5rem;
-        font-size: 0;
+//       button {
+//         width: 2rem;
+//         height: 2rem;
+//         background: var(--white);
+//         border: 1px solid var(--gray-100);
+//         border-radius: 0.5rem;
+//         font-size: 0;
 
-        transition: filter 0.2s;
+//         transition: filter 0.2s;
 
-        img {
-          width: 1.25rem;
-          height: 1.25rem;
-        }
+//         img {
+//           width: 1.25rem;
+//           height: 1.25rem;
+//         }
 
-        &:hover {
-          filter: brightness(0.95);
-        }
-      }
-    }
-  }
+//         &:hover {
+//           filter: brightness(0.95);
+//         }
+//       }
+//     }
+//   }
 }
