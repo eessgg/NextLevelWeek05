@@ -10,10 +10,10 @@ function MyApp({ Component, pageProps }) {
   return (
     <PlayerContextProvider>
       <div className={styles.wrapper}>   
-        <main>
-          <Header />
-          <Player />
-          <Component {...pageProps} />  
+        <Header />
+        <main className={styles.container}>
+         <Player />
+          <Component {...pageProps} />
         </main>
       </div>
     </PlayerContextProvider>

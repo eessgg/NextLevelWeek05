@@ -8,10 +8,12 @@ export function Header() {
   })
   return (
     <header className={styles.headerContainer}>
-      <img src="/logo.svg" alt="app"/>
+      <div>
+        <img src="/logo.svg" alt="app"/>
 
-      <p>O melhor para voce ouvir, sempre</p>
-      <span>Ter, 18 abril</span>
+        <p>O melhor para voce ouvir, sempre</p>
+        <span>Ter, 18 abril</span>
+      </div>
     </header>
   )
 }

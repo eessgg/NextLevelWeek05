@@ -8,6 +8,8 @@ import ptBR from 'date-fns/locale/pt-BR';
 import { convertDurationToString } from './../utils/convertDurationToString';
 import styles from './home.module.scss';
 import { PlayerContext, usePlayer } from './../contexts/PlayerContext';
+import { FiCalendar, FiClock } from "react-icons/fi";
+
 
 type Episode = {
   id: string;
@@ -50,13 +52,13 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                     alt={episode.title}
                     objectFit="cover"
                   />
-                  <button 
+                  <button
                     type="button"
                     onClick={() => playList(episodeList, index + latestEpisodes.length)}
                   > <img src="/play-green.svg" alt="play" />
                   </button>
                 </div>
-  
+
                 <div className={styles.episodeDetails}>
                   <main>
                     <Link href={`/episodes/${episode.id}`}>
@@ -65,8 +67,8 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                     <p>{episode.members}</p>
                   </main>
                   <footer>
-                    <p> <span> DATA: </span> {episode.publishedAt}</p>
-                    <p> <span> DURAÇÂO: </span> {episode.durationString}</p>
+                    <p> <span> <FiCalendar /> </span> {episode.publishedAt}</p>
+                    <p> <span> <FiClock /> </span> {episode.durationString}</p>
                   </footer>
                 </div>
               </li>
@@ -75,46 +77,40 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
         </ul>
       </section>
 
+      <h2>Todos Episódios</h2>
       <section className={styles.allEpisodes}>
-        <h2>Todos Episódios</h2>
-        <table cellSpacing={0}>
-          <thead>
-            <th></th>
-            <th>Podcast</th>
-            <th>Integrantes</th>
-            <th>Data</th>
-            <th>Duração</th>
-            <th></th>
-          </thead>
-          <tbody>
-            {allEpisodes.map(episode => {
-              return (
-                <tr key={episode.id}> 
-                  <td style={{width: 72}}>
-                    <Image 
-                      width={120}
-                      height={120}
-                      src={episode.thumbnail}
-                      alt={episode.title}
-                      objectFit="cover"
-                    />
-                  </td>
-                  <td>
+
+          {allEpisodes.map((episode, index) => {
+            return (
+              <div key={episode.id} className={styles.allEpisodesBox}>
+                <div className={styles.btnPlayDetails}>
+                  <Image
+                    width={120}
+                    height={120}
+                    src={episode.thumbnail}
+                    alt={episode.title}
+                    objectFit="cover"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => playList(episodeList, index + allEpisodes.length)}
+                  > <img src="/play-green.svg" alt="play" />
+                  </button>
+                </div>
+
+                <div className={styles.details}>
+                  <div  className={styles.details_text}>
                     <Link href={`/episodes/${episode.id}`}>{episode.title}</Link>
-                  </td>
-                  <td> {episode.members} </td>
-                  <td style={{width: 100}}> {episode.publishedAt} </td>
-                  <td> {episode.durationString} </td>
-                  <td>
-                    <button type="button">
-                      <img src="/play-green.svg" alt="Tocar episódio" />
-                    </button>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+                    <p> {episode.members} </p>
+                  </div>
+                  <div  className={styles.details_data}>
+                    <p  style={{ width: 100 }}> <span> <FiCalendar /> </span> {episode.publishedAt}</p>
+                    <p> <span> <FiClock /> </span> {episode.durationString}</p>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
       </section>
     </div>
   )

@@ -1,13 +1,18 @@
 .headerContainer {
-  background: var(--white);;
-  height: 6.5rem;
-
+  padding:  2rem;
   display: flex;
-  align-items: center;
-
+  justify-content: center;
+  
   padding: 2rem 4rem;
-
   border-bottom: 1px solid var(--gray-100);
+  
+  div {
+    width: 1280px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
 
   p {
     margin-left: 2rem;

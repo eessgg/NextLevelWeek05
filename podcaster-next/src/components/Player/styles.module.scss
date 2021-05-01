@@ -1,25 +1,35 @@
 .playerContainer {
-  width: 100%;
-  padding: 3rem 4rem;
-  height: auto;
-
-  background: var(--green-hover);
-  color: var(--white);
-
+  // width: 100%;
+  min-height: 300px;
+  padding: 2rem 0;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  
+  border-radius: 10px;
+
+  background-color: #EBEBEB;
 
   header {
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 1rem;
+    width: 100%;
+    text-align: center;
+    padding: 1rem 0;
   }
 
-  strong {
+  p {
     font-family: Lexend, sans-serif;
-    font-weight: 600;
+    font-weight: 800;
+    font-size: 24px;
+    padding: 2rem;
+    margin: 2rem;
+  }
+
+  img {
+    padding:0 0.5rem;    
   }
 
   footer {
@@ -34,18 +44,25 @@
   width: 100%;
   height: 10rem;
   border: 1.5px dashed var(--purple-300);
-  background: linear-gradient(143.8deg, rgba(145,100,200,0.8) 0%, rgba(0,0,0,0) 100%);
+  // background: linear-gradient(143.8deg, #5010ff3f 0%, #ec17d72e 100%);
+  font-weight: 500;
 
-  padding: 4rem;
+  padding: 2rem;
+  display: flex;
   align-items: center;
   justify-content: center;
+  align-content: center;
+  text-align: center;
 }
+
 
 .progress{ 
   display: flex;
   align-items: center;
+  align-content: center;
   gap: 1rem;
   font-size: 0.875rem;
+  padding: 2rem 0;
 
   span {
     display: inline-block;
@@ -59,7 +76,7 @@
     .emptySlider {
       width: 100%;
       height: 4px;
-      background: var(--purple-300);
+      background: var(--purple-400);
       border-radius: 2px;
     }
   }
@@ -69,14 +86,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 2.5rem;
-  gap: 1.5rem;
 
   button {
     background: transparent;
     border: 0;
     font-size: 0;
-    
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    color: var(--text);
+    margin: 0 0.5rem;
+
     transition: filter 0.2s;
 
     &:disabled {
@@ -108,12 +128,15 @@
   }
 }
 
+
 .currentEpisode {
   text-align: center;
+  padding: 0 33px;
+  display: grid;
+  flex-direction: row;
+  grid-template-columns: repeat(2,1fr);
+  grid-gap: 33px;
 
-  img {
-    border-radius: 1.5rem;
-  }
 
   strong {
     display: block;
@@ -124,8 +147,15 @@
 
   span {
     display: block;
-    margin-top: 1rem;
     opacity: 0.6;
     line-height: 1.5rem;
   }
+
+  img {
+    border-radius: 10px;
+  }
+}
+
+.currentEpisodeDetails {
+  padding: 24px;
 }
