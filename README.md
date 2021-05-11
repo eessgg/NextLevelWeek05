@@ -5,12 +5,12 @@
 
 ## 📋 Table of Contents
 
-- [Project 1:  Podcastr](#projet-1-podcastr)
+- [Project 1:  Podcastr](#project-1-podcastr)
 - [Project 2: Plant Manager](#project-2-plant-manager)
 ---
 
 
-# 🚀 **Project 1 Podcastr**
+#  <div id='project-1-podcastr'/> 🚀Project 1 Podcastr
 Aplicação web para ouvir podcasts, criada com NextJS (framework React) para aplicações SSR(Server Side Rendering)
 
 ##  📷  Screenshots
@@ -48,7 +48,7 @@ $ yarn dev
 
 ---
 
-# 🚀 Project 2: Plant Manager | Reatc Native
+# <div id='project-2-plant-manager'/> 🚀 Project 2 Plant Manager
 <!-- What is your project? -->
 
 Aplicação mobile para gerenciamento de plantas em casa e no jardim, com lembretes de água.
