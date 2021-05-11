@@ -12,7 +12,7 @@ export function Header() {
         <img src="/logo.svg" alt="app"/>
 
         <p>O melhor para voce ouvir, sempre</p>
-        <span>Ter, 18 abril</span>
+        <span>{currentDate}</span>
       </div>
     </header>
   )
