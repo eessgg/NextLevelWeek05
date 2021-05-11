@@ -89,6 +89,6 @@ $ yarn dev
 
 ## 🎉Launch
 
-``http://localhost:3000/``
+Use o aplicativo [Expo](https://expo.io/client) para rodar o app no mobile.
 
 
